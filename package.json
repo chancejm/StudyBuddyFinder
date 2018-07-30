@@ -1,0 +1,29 @@
+{
+  "name": "studybuddyfinder",
+  "version": "1.0.0",
+  "description": "UofA Homework - \"Friend Finder\"",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chancejm/StudyBuddyFinder.git"
+  },
+  "keywords": [
+    "study",
+    "buddy",
+    "finder"
+  ],
+  "author": "Chance Musselman",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/chancejm/StudyBuddyFinder/issues"
+  },
+  "homepage": "https://github.com/chancejm/StudyBuddyFinder#readme",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.3"
+  }
+}
