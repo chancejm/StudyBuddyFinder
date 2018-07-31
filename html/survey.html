@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Title</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B"
+        crossorigin="anonymous">
+</head>
+
+<body style="background: darkred;">
+    <div class="container">
+        <div class="jumbotron">
+            <h1 class="display-3">Study Buddy Survey</h1>
+            <p class="lead">SURVEY PAGE</p>
+            <hr class="my-2">
+            <p>Please Select On A Scale Of 1 To 10 How Comfortable You Are With Each Subject</p>
+            <p class="lead">
+                <a class="btn btn-primary btn-lg" href="/" role="button">Back to Home Page</a>
+            </p>
+        </div>
+        <button class="m-3" style="background: darkgreen; border: 1px solid green;"> = Selected</button>
+        <div class="row">
+            <button id="needHelp" class="btn btn-info m-2">Need Help</button>
+            <button id="canHelp" class="btn btn-info m-2">Can Help</button>
+            <button id="saveStudent" class="btn btn-info m-2" style="background: darkgreen; border: 1px solid green;">Save Student</button>
+            <form>
+                <div class="form-group">
+                    <input type="text" class="form-control text-center" id="nameInput" placeholder="Your Name Here">
+                </div>
+                <div class="subjects col-sm-12">
+
+                </div>
+                <button type="submit" class="submitBtn btn btn-primary mt-4 mb-4" style="width: 100%;">Submit</button>
+            </form>
+        </div>
+        <div id="result" style="position: fixed; top: 3%; left: 3%; height: 94%; width: 94%; background: grey; opacity: .95; visibility: hidden;">
+            <div class="container">
+                
+
+            </div>
+        </div>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="main.js"></script>
+</body>
+
+</html>
