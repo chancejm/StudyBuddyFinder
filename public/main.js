@@ -1,13 +1,14 @@
 $("document").ready(function () {
     console.log("ready");
-    let needHelp = false;
-    let canHelp = false;
-    let saveStudent = true;
+    // let needHelp = false;
+    // let canHelp = false;
+    let saveStudent = false;
     let obj = {};
+    let match = [];
 
     let subjectArr = ['html', 'css', 'git', 'bootstrap', 'heroku', 'javascript', 'jquery', 'js-timers', 'api', 'ajax', 'local-storage', 'firebase', 'nodejs', 'constructors', 'callbacks', 'mysql', 'node-express-server', 'sequelize', 'mongodb', 'reactjs'];
 
-    function testCreate(subject) {
+    function createSliderCards(subject) {
         let html = $(`<div class="card float-left text-center m-1 rounded" style="height:300px; width:269px; background: lightgrey; border: 3px solid grey;">
             <h1 id="${subject}Score" style="margin-top: 40px;">0</h1>
             <div class="card-body">
@@ -20,11 +21,16 @@ $("document").ready(function () {
         </div>`);
 
         $(".subjects").append(html);
-    };
+    }
+    function createSubjectResults(subject, counter) {
+        let header = $(`<div id="${subject}" style="height: 5%;font-size: 20px; font-weight: bold; font-size: 2vmin;">${subject} </div>`);
+        $("#userMatchResults").append(header);
+    }
 
     for (let i = 0; i < subjectArr.length; i++) {
-        testCreate(subjectArr[i]);
-    };
+        createSliderCards(subjectArr[i]);
+        createSubjectResults(subjectArr[i]);
+    }
 
     $(".slider").on("input", function () {
         let data = $(this).attr("data");
@@ -73,11 +79,12 @@ $("document").ready(function () {
                 break;
             default: console.log("UH OH :(");
                 break;
-        };
+        }
     });
 
     $(".submitBtn").on("click", function (event) {
         event.preventDefault();
+        if($("#nameInput").val() != ""){
         obj = {
             name: $("#nameInput").val().trim(),
             html: $("#htmlRange").val(),
@@ -117,17 +124,18 @@ $("document").ready(function () {
                 createResult(req);
             });
         }
-        if (needHelp) {
-            $.post("/needHelpStudents", obj, function (response) {
-                console.log(response);
-            });
-        };
-        if (canHelp) {
-            $.post("/canHelpStudents", obj, function (response) {
-                console.log(response);
-            });
-        };
-        $("#result").css("visibility", "visible");
+        // if (needHelp) {
+        //     $.post("/needHelpStudents", obj, function (response) {
+        //         console.log(response);
+        //     });
+        // }
+        // if (canHelp) {
+        //     $.post("/canHelpStudents", obj, function (response) {
+        //         console.log(response);
+        //     });
+        // }
+        $("#displayResult").css("visibility", "visible");
+    }
     });
 
     $("#needHelp").click(function () {
@@ -143,7 +151,7 @@ $("document").ready(function () {
                 needHelp = false;
                 break;
         }
-        console.log(needHelp)
+        console.log(needHelp);
     });
 
     $("#canHelp").click(function () {
@@ -159,7 +167,7 @@ $("document").ready(function () {
                 canHelp = false;
                 break;
         }
-        console.log(canHelp)
+        console.log(canHelp);
     });
 
     $("#saveStudent").click(function () {
@@ -179,9 +187,14 @@ $("document").ready(function () {
     });
 
     function createResult(array) {
+        console.log("Starting Matching");
+        let counterOne = 0;
+        let counterTwo = 0;
+        let compare = [];
+        let currentMatch = [];
         for (let i = 0; i < array.length; i++) {
-            let testArr = [];
-
+            console.log("Creating Comparison Array for:" + array[i].name);
+            testArr = [];
             testArr.push(array[i].html - obj.html);
             testArr.push(array[i].css - obj.css);
             testArr.push(array[i].git - obj.git);
@@ -202,10 +215,75 @@ $("document").ready(function () {
             testArr.push(array[i].sequelize - obj.sequelize);
             testArr.push(array[i].mongodb - obj.mongodb);
             testArr.push(array[i].reactjs - obj.reactjs);
+            testArr.push(array[i].name);
+            compare.push(testArr);
+        };
+        // console.log(compare[i]);
+        currentMatch = compare[0];
 
+        for (let j = 1; j < compare.length; j++) {
 
-            console.log(testArr);
+            for (let k = 0; k < compare[0].length - 1; k++) {
+                if (currentMatch[k] <= 1 && currentMatch[k] >= -1) {
+                    counterOne++;
+                }
+                if (compare[j][k] <= 1 && compare[j][k] >= -1) {
+                    counterTwo++;
+                }
+            }
+            if (counterOne >= counterTwo) {
+                match = currentMatch;
+                console.log(counterOne + " " + counterTwo);
+                counterOne = 0;
+                counterTwo = 0;
+            } else {
+                match = compare[j];
+                currentMatch = compare[j];
+                console.log(counterOne + " " + counterTwo);
+                counterOne = 0;
+                counterTwo = 0;
+            }
         }
-    };
+        $("#matchName").text(match[20]);
+        $("#userName").text(obj.name);
+        symbols();
+    }
 
+    function symbols() {
+        console.log(match);
+        for (let i = 0; i < match.length - 1; i++) {
+            console.log(subjectArr[i]);
+            switch (i) {
+                case i:
+                    symbolDisplay(match[i], subjectArr[i]);
+                    break;
+                default:
+                    console.log("Uh Oh :(");
+                    break;
+            }
+
+        } 
+    }
+    function symbolDisplay(param, subject) {
+        if (param === 3) {
+            $("#" + subject).text(subject + " +++");
+        } else if (param === 2) {
+            $("#" + subject).text(subject + " ++");
+        } else if (param === 1) {
+            $("#" + subject).text(subject + " +"); 
+        } else if (param === -1) {
+            $("#" + subject).text("+ "+subject);
+        } else if (param === -2) {
+            $("#" + subject).text("++ "+subject);
+        } else if (param === -3) {
+            $("#" + subject).text("+++ "+subject);
+        } else if (param === 0) {
+            $("#" + subject).text("+" + subject + "+");
+        } else if (param < -3) {
+            $("#" + subject).text("++++ " + subject);
+        } else if (param > 3) {
+            $("#" + subject).text(subject + " ++++");
+        } 
+    };
 });
+

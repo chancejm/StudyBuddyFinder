@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 const path = require('path');
 const apiData = require('./javascript/data.js');
 const app = express();
+let PORT = process.env.PORT || 3000;
 
 
 // create application/x-www-form-urlencoded parser
@@ -10,17 +11,11 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // parse various different custom JSON types as JSON
 app.use(bodyParser.json());
 // parse some custom thing into a Buffer
-app.use(bodyParser.raw({ type: 'application/vnd.custom-type' }));
+// app.use(bodyParser.raw({ type: 'application/vnd.custom-type' }));
 // parse an HTML body into a string
-app.use(bodyParser.text({ type: 'text/html' }));
+// app.use(bodyParser.text({ type: 'text/html' }));
 
 app.use(express.static("public"));
-
-// app.use(function (req, res) {
-//   res.setHeader('Content-Type', 'text/plain')
-//   res.write('you posted:\n')
-//   res.end(JSON.stringify(req.body, null, 2))
-// });
 
 //HTML ROUTES
 app.get('/survey', function (req, res) {
@@ -65,31 +60,6 @@ app.post("/needHelpStudents", function(req, res){
 });
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-app.listen(3000);
+app.listen(PORT, function() {
+  console.log("App listening on PORT " + PORT);
+});
