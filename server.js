@@ -6,14 +6,9 @@ const app = express();
 let PORT = process.env.PORT || 3000;
 
 
-// create application/x-www-form-urlencoded parser
 app.use(bodyParser.urlencoded({ extended: true }));
-// parse various different custom JSON types as JSON
+
 app.use(bodyParser.json());
-// parse some custom thing into a Buffer
-// app.use(bodyParser.raw({ type: 'application/vnd.custom-type' }));
-// parse an HTML body into a string
-// app.use(bodyParser.text({ type: 'text/html' }));
 
 app.use(express.static("public"));
 
@@ -47,17 +42,17 @@ app.post("/newStudent", function(req, res){
   res.send(apiData.savedStudents);
 });
 
-app.post("/canHelpStudents", function(req, res){
-  var student = req.body;
-  apiData.canHelp.push(student);
-  res.send(apiData.canHelp);
-});
+// app.post("/canHelpStudents", function(req, res){
+//   var student = req.body;
+//   apiData.canHelp.push(student);
+//   res.send(apiData.canHelp);
+// });
 
-app.post("/needHelpStudents", function(req, res){
-  var student = req.body;
-  apiData.needHelp.push(student);
-  res.send(apiData.needHelp);
-});
+// app.post("/needHelpStudents", function(req, res){
+//   var student = req.body;
+//   apiData.needHelp.push(student);
+//   res.send(apiData.needHelp);
+// });
 
 
 app.listen(PORT, function() {

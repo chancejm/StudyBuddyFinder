@@ -1,8 +1,14 @@
+// TO DO: 
+// - Evaluate Logic and add in process to handle multiple Matches with the same point values
+// - Add input & logic to accept, store, and display User Photos
+// - Finish Features in Read Me.
+// - Try Refactor JS, HTML, File Structure
+
 $("document").ready(function () {
-    console.log("ready");
+    // console.log("ready");
     // let needHelp = false;
     // let canHelp = false;
-    let saveStudent = false;
+    let saveStudent = true;
     let obj = {};
     let match = [];
 
@@ -21,16 +27,16 @@ $("document").ready(function () {
         </div>`);
 
         $(".subjects").append(html);
-    }
+    };
     function createSubjectResults(subject, counter) {
         let header = $(`<div id="${subject}" style="height: 5%;font-size: 20px; font-weight: bold; font-size: 2vmin;">${subject} </div>`);
         $("#userMatchResults").append(header);
-    }
+    };
 
     for (let i = 0; i < subjectArr.length; i++) {
         createSliderCards(subjectArr[i]);
         createSubjectResults(subjectArr[i]);
-    }
+    };
 
     $(".slider").on("input", function () {
         let data = $(this).attr("data");
@@ -79,7 +85,7 @@ $("document").ready(function () {
                 break;
             default: console.log("UH OH :(");
                 break;
-        }
+        };
     });
 
     $(".submitBtn").on("click", function (event) {
@@ -110,65 +116,65 @@ $("document").ready(function () {
         };
         if (saveStudent) {
             $.get("/api", function (req, res) {
-                console.log(req);
+                // console.log(req);
                 createResult(req);
             });
             setTimeout(() => {
                 $.post("/newStudent", obj, function (response) {
-                    console.log(response);
+                    // console.log(response);
                 });
             }, 500);
         } else {
             $.get("/api", function (req, res) {
-                console.log(req);
+                // console.log(req);
                 createResult(req);
             });
-        }
+        };
         // if (needHelp) {
         //     $.post("/needHelpStudents", obj, function (response) {
-        //         console.log(response);
+                // console.log(response);
         //     });
-        // }
+        // };
         // if (canHelp) {
         //     $.post("/canHelpStudents", obj, function (response) {
-        //         console.log(response);
+                // console.log(response);
         //     });
-        // }
+        // };
         $("#displayResult").css("visibility", "visible");
-    }
+    };
     });
 
-    $("#needHelp").click(function () {
-        switch (needHelp) {
-            case false:
-                $(this).css("border", "1px solid green");
-                $(this).css("background", "darkgreen");
-                needHelp = true;
-                break;
-            default:
-                $(this).css("border", "");
-                $(this).css("background", "");
-                needHelp = false;
-                break;
-        }
-        console.log(needHelp);
-    });
+    // $("#needHelp").click(function () {
+    //     switch (needHelp) {
+    //         case false:
+    //             $(this).css("border", "1px solid green");
+    //             $(this).css("background", "darkgreen");
+    //             needHelp = true;
+    //             break;
+    //         default:
+    //             $(this).css("border", "");
+    //             $(this).css("background", "");
+    //             needHelp = false;
+    //             break;
+    //     };
+        // console.log(needHelp);
+    // });
 
-    $("#canHelp").click(function () {
-        switch (canHelp) {
-            case false:
-                $(this).css("border", "1px solid green");
-                $(this).css("background", "darkgreen");
-                canHelp = true;
-                break;
-            default:
-                $(this).css("border", "");
-                $(this).css("background", "");
-                canHelp = false;
-                break;
-        }
-        console.log(canHelp);
-    });
+    // $("#canHelp").click(function () {
+    //     switch (canHelp) {
+    //         case false:
+    //             $(this).css("border", "1px solid green");
+    //             $(this).css("background", "darkgreen");
+    //             canHelp = true;
+    //             break;
+    //         default:
+    //             $(this).css("border", "");
+    //             $(this).css("background", "");
+    //             canHelp = false;
+    //             break;
+    //     }
+        // console.log(canHelp);
+    // });
 
     $("#saveStudent").click(function () {
         switch (saveStudent) {
@@ -182,18 +188,18 @@ $("document").ready(function () {
                 $(this).css("background", "darkgreen");
                 saveStudent = true;
                 break;
-        }
-        console.log(saveStudent)
+        };
+        // console.log(saveStudent)
     });
 
     function createResult(array) {
-        console.log("Starting Matching");
+        // console.log("Starting Matching");
         let counterOne = 0;
         let counterTwo = 0;
         let compare = [];
         let currentMatch = [];
         for (let i = 0; i < array.length; i++) {
-            console.log("Creating Comparison Array for:" + array[i].name);
+            // console.log("Creating Comparison Array for:" + array[i].name);
             testArr = [];
             testArr.push(array[i].html - obj.html);
             testArr.push(array[i].css - obj.css);
@@ -218,7 +224,6 @@ $("document").ready(function () {
             testArr.push(array[i].name);
             compare.push(testArr);
         };
-        // console.log(compare[i]);
         currentMatch = compare[0];
 
         for (let j = 1; j < compare.length; j++) {
@@ -229,8 +234,8 @@ $("document").ready(function () {
                 }
                 if (compare[j][k] <= 1 && compare[j][k] >= -1) {
                     counterTwo++;
-                }
-            }
+                };
+            };
             if (counterOne >= counterTwo) {
                 match = currentMatch;
                 console.log(counterOne + " " + counterTwo);
@@ -242,17 +247,17 @@ $("document").ready(function () {
                 console.log(counterOne + " " + counterTwo);
                 counterOne = 0;
                 counterTwo = 0;
-            }
-        }
+            };
+        };
         $("#matchName").text(match[20]);
         $("#userName").text(obj.name);
         symbols();
-    }
+    };
 
     function symbols() {
-        console.log(match);
+        // console.log(match);
         for (let i = 0; i < match.length - 1; i++) {
-            console.log(subjectArr[i]);
+            // console.log(subjectArr[i]);
             switch (i) {
                 case i:
                     symbolDisplay(match[i], subjectArr[i]);
@@ -260,10 +265,10 @@ $("document").ready(function () {
                 default:
                     console.log("Uh Oh :(");
                     break;
-            }
+            };
+        };
+    };
 
-        } 
-    }
     function symbolDisplay(param, subject) {
         if (param === 3) {
             $("#" + subject).text(subject + " +++");
@@ -283,7 +288,7 @@ $("document").ready(function () {
             $("#" + subject).text("++++ " + subject);
         } else if (param > 3) {
             $("#" + subject).text(subject + " ++++");
-        } 
+        };
     };
 });
 

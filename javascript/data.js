@@ -39,13 +39,11 @@ function populateStudents() {
     };
 
     for (let j = 0; savedStudents.length < 9; j++) {
-            for(let key in savedStudents[j]){
-                savedStudents[i].key = j + 1;
-                console.log("this ran");
-            }
-            
-    }
-}
+        for (let key in savedStudents[j]) {
+            savedStudents[i].key = j + 1;
+        };
+    };
+};
 
 module.exports = {
     savedStudents: savedStudents,

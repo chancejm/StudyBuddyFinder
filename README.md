@@ -6,9 +6,9 @@
 
 1. We ask for your name & to select how comfortable you are with various subjects on a scale of 1 to 10.
 
-2. When you Submit your name & subject values we attempt to match you with a student that has the most common self assessed knowledge level with you in as many subjects as possible.
+2. When you Submit your name & subject values, we attempt to match you with a student that has the most similar self assessed knowledge level in as many subjects as possible.
 
-3. Your Results will be displayed with a chart giving you a Visual Representation of you & your potential Study Buddy's self assessed knowledge levels.
+3. Your Results will be displayed. Giving you a Visual Representation of how you and your study buddy match may be able to help each other, as well as subjects you may be able to easily start learning TOGETHER! :)
 
 ### Example Results
 
