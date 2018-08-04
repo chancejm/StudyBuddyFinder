@@ -1,5 +1,5 @@
 // TO DO: 
-// - Evaluate Logic and add in process to handle multiple Matches with the same point values
+// - Evaluate Logic and add in process to handle multiple "good" Matches with the same point values
 // - Add input & logic to accept, store, and display User Photos
 // - Finish Features in Read Me.
 // - Try Refactor JS, HTML, File Structure
